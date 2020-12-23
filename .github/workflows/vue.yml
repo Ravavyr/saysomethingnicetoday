@@ -30,4 +30,6 @@ jobs:
         run: |
           echo cd ~/vue
           echo npm install
-          echo npm run build
+          
+      - name: Build Vue CLI App
+        run: echo npm run build
