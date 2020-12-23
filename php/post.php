@@ -48,7 +48,7 @@ if(isset($_POST['username']) && isset($_POST['compliment']))
         $full_message = 'Someone wanted to say something nice to you today '.$tw_username.': "'.$compliment_msg.'"';
         if(strlen($full_message) > 200)
         {
-            $full_message = ''.$tw_username.': '.$full_compliment.'';
+            $full_message = ''.$tw_username.': "'.$compliment_msg.'"';
         }
         try 
         {
