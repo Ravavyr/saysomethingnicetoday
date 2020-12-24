@@ -71,8 +71,6 @@ export default defineComponent({
         responseMessage.error = true;
         responseMessage.message= "Failed to submit the nice thing to say. Recheck your credentials and try again later.";
       }
-      console.log(responseMessage);
-
     }
     return { compliment, onSubmit, responseMessage };
   },
