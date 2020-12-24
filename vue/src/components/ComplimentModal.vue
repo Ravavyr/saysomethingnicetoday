@@ -79,7 +79,7 @@ export default defineComponent({
   mounted() {
     // adds the transition for the page opacity
     const _this = this;
-    setTimeout(() => _this.$refs.modal.classList.add("showing"));
+    setTimeout(() => (_this.$refs.modal as any).classList.add("showing"));
   },
 });
 </script>
