@@ -14,6 +14,7 @@
             id="twitter-handle"
             type="text"
             placeholder="SmthNiceToday"
+            pattern="[^@]*"
             title="Friend's Twitter handle without the @"
             required
           />
