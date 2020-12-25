@@ -30,4 +30,8 @@ body {
   min-height: 100vh;
   padding-bottom: 4rem;
 }
+@media (max-width:1600px){
+  #app{padding:1rem 1rem;}
+
+}
 </style>

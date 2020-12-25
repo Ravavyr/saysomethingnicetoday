@@ -1,3 +1,4 @@
+*{-webkit-appearance:none;}
 form {
   input[type="text"],
   input[type="search"] {
@@ -6,6 +7,7 @@ form {
     color: map-get($txt-colors, primary);
     outline: none;
     border: none;
+    border-radius:0;
     width: 25%;
     font-size: 1.2rem;
     border-bottom: 1px solid map-get($txt-colors, secondary);

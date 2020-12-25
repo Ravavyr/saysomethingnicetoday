@@ -33,7 +33,7 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   padding: 0.5rem 2rem 0.5rem 0;
-    font-size: 1.5rem;
+  font-size: 1.5rem;
   line-height: 1.6;
   text-decoration: none;
   $color: map-get($txt-colors, tertiary);
@@ -58,5 +58,8 @@ export default defineComponent({
     color: map-get($txt-colors,blue);
     transition-delay: 0;
 
+}
+@media (max-width:1600px){
+  .compliment-card {font-size:1.2rem; line-height:1.2;}
 }
 </style>

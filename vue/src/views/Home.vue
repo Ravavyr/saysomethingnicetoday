@@ -108,6 +108,7 @@ export default defineComponent({
     outline: none;
     border: none;
     width: 25%;
+    min-width:300px;
     font-size: 1.2rem;
     border-bottom: 1px solid map-get($txt-colors, secondary);
     padding-bottom: 0.4rem;
@@ -157,5 +158,53 @@ export default defineComponent({
 
   }
 
+}
+
+@media (max-width:1600px){
+  #home-page{
+    .compliments ol{gap:0 1rem;}
+  }
+}
+@media (max-width:1200px){
+  #home-page{
+    header h1{font-size:3.5rem;}
+    .compliments h2{ font-size:1.2rem;}
+    .thewhy figcaption{font-size:1.4rem;}
+  }
+}
+@media (max-width:960px){
+  #home-page{
+    .compliments{width:50%;}
+    .compliments ol{ grid-template-columns: repeat(1,1fr);}
+    .thewhy{width:50%;}
+    .thewhy figcaption{font-size:1.2rem;}
+  }
+}
+@media (max-width:800px){
+  #home-page{
+    header h1{font-size:2.5rem;}
+    .compliments h2{ font-size:1rem;}
+  }
+}
+@media (max-width:680px){
+  #home-page{
+    .compliments{width:100%;}
+    .compliments ol{width:100%; height:370px; border-bottom:2px dashed #444; padding-bottom:1rem; overflow:hidden; overflow-y:scroll;}
+    .thewhy{width:100%; padding-top:2rem; display:flex; flex-wrap:wrap; justify-content:center; }
+    .thewhy figure{width:calc(50% - 2rem); display:block; margin:1rem;}
+    .thewhy figure img{margin:0;}
+    .thewhy figcaption{font-size:1rem;}
+  }
+}
+@media (max-width:460px){
+  #home-page{
+    header h1{font-size:1.8rem;}
+    .thewhy figure{width:calc(100% - 2rem);}
+  }
+}
+@media (max-width:400px){
+  #home-page{
+    header h1{font-size:1.4rem;}
+  }
 }
 </style>

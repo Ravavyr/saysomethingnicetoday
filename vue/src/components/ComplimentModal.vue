@@ -139,6 +139,7 @@ export default defineComponent({
       input {
         font-family: inherit;
         color: inherit;
+        min-width:200px;
       }
 
       > input,
@@ -146,6 +147,8 @@ export default defineComponent({
         display: block;
         margin: 0.5rem 0;
       }
+      input[type="text"]{color:map-get($txt-colors, yellow);}
+      input[type="text"]::placeholder{color:map-get($txt-colors, yellow); opacity:0.7;}
 
       nav {
         margin-top: 2rem;
@@ -186,6 +189,41 @@ export default defineComponent({
         }
       }
     }
+  }
+}
+@media (max-width:1400px){
+  #compliment-modal{
+    #modal-content{width:65%}
+
+  }
+}
+@media (max-width:1200px){
+  #compliment-modal{
+    #modal-content h1{font-size:2.5rem;}
+
+  }
+}
+@media (max-width:960px){
+  #compliment-modal{
+    #modal-content{width:80%}
+
+  }
+}
+@media (max-width:1200px){
+  #compliment-modal{
+    #modal-content h1{font-size:1.8rem;}
+    #modal-content h2{font-size:1.2rem;}
+  }
+}
+@media (max-width:460px){
+  #compliment-modal{
+    #modal-content h1{font-size:1.4rem;}
+    #modal-content h2{font-size:1rem;}
+  }
+}
+@media (max-width:360px){
+  #compliment-modal{
+    #modal-content{padding:2rem 1rem; width:100%; border-radius:0;}
   }
 }
 </style>
