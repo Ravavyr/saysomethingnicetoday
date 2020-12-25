@@ -2,26 +2,52 @@
   <main id="home-page">
     <header>
       <h1>Say Something Nice Today</h1>
-      <h2>We'll tweet it to your friend anonymously from our account.</h2>
     </header>
-    <form @submit.prevent>
-      <input
-        type="search"
-        v-model="searchQuery"
-        placeholder="Find nice things to say..."
-      />
-    </form>
-    <ol v-if="state.allCompliments" class="compliments">
-      <li
-        v-for="{ id, compliment } in filterCompliments(
-          state.allCompliments,
-          searchQuery
-        )"
-        :key="id"
-      >
-        <ComplimentCard :id="id" :compliment="compliment" />
-      </li>
-    </ol>
+    <section class="content-wrapper">
+      <div class="compliments">
+        <h2>We'll tweet it to your friend anonymously from our account.</h2>
+        <form @submit.prevent>
+          <input
+            type="search"
+            v-model="searchQuery"
+            placeholder="Find nice things to say..."
+          />
+        </form>
+        <ol v-if="state.allCompliments">
+          <li
+            v-for="{ id, compliment } in filterCompliments(
+              state.allCompliments,
+              searchQuery
+            )"
+            :key="id"
+          >
+            <ComplimentCard :id="id" :compliment="compliment" />
+          </li>
+        </ol>
+      </div>
+      <div class="thewhy">
+        <figure class="y">
+          <img src="@/assets/joyride.svg" alt="A Happy Announcement">
+          <figcaption>Lift Someone Up High.</figcaption>
+        </figure>
+        <figure class="g">
+          <img src="@/assets/happy_announcement.svg" alt="A Happy Announcement">
+          <figcaption>Cheer on a Friend.</figcaption>
+        </figure>
+        <figure class="b">
+          <img src="@/assets/intense_feeling.svg" alt="A Happy Announcement">
+          <figcaption>Show someone some Love.</figcaption>
+        </figure>
+        <figure class="g">
+          <img src="@/assets/i_can_fly.svg" alt="A Happy Announcement">
+          <figcaption>Raise someone's Spirit.</figcaption>
+        </figure>
+        <figure class="b">
+          <img src="@/assets/exciting_news.svg" alt="A Happy Announcement">
+          <figcaption>Make someone's Day.</figcaption>
+        </figure>
+      </div>
+    </section>
     <router-view />
   </main>
 </template>
@@ -69,17 +95,11 @@ export default defineComponent({
       font-weight: 500;
       margin-top: 1rem;
       margin-bottom: 0;
-      color: map-get($txt-colors, primary);
-    }
-
-    h2 {
-      font-size: 1.6rem;
-      font-weight: 500;
-      color: #444;
-      margin-top: 1rem;
-      color: map-get($txt-colors, secondary);
+      color: map-get($txt-colors, green);
     }
   }
+
+  .content-wrapper{display:flex; flex-wrap:wrap; justify-content:space-between;}
 
   form input {
     font-family: inherit;
@@ -95,16 +115,47 @@ export default defineComponent({
     &:focus {
       border-bottom-color: map-get($txt-colors, primary);
     }
+    &::-webkit-search-cancel-button{
+      appearance:none;
+      width: 0;
+      height: 0;
+      border-bottom: 15px solid red;
+      border-right: 15px solid transparent;
+    }
   }
 
+
   .compliments {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0 4rem;
-    list-style: none;
-    margin: 0 !important;
-    padding: 0 !important;
+    width: 65%;
+
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #444;
+      margin-top: 1rem;
+      color: map-get($txt-colors, secondary);
+    }
+
+    ol{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0 2rem;
+      list-style: none;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
   }
+  .thewhy{
+    width:35%;
+
+    figure.g{ color:#6DFF63;}
+    figure.y{color:#DCFF63;}
+    figure.b{color:#63FFF5;}
+
+    img{margin:0 0.5rem 0 0.5rem;}
+    figcaption{display:block; padding:0.5rem; margin-bottom:3rem; font-weight:700; text-align:center; font-size:1.8rem;}
+
+  }
+
 }
 </style>

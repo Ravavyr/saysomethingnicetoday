@@ -21,7 +21,7 @@ export const store = new Vuex.Store<State>({
     async [StoreActions.LoadCompliments](context) {
       const state = context.state;
       if (state.allCompliments === null) {
-        const res = await fetch(`${window.location.origin}/compliments.json`);
+        const res = await fetch(`https://saysomethingnice.today/compliments.json?a=1`);
         const data = await res.json();
         state.allCompliments = data;
       }

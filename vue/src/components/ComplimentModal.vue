@@ -3,8 +3,8 @@
     <div id="modal-content">
       <h1>Say Something Nice Today</h1>
       <h2>
-        We will post a tweet that includes the nice thing to say that you have
-        picked and mentions the given Twitter account.
+        We will post a tweet with the <span class="g">nice thing to say</span> that you have
+        chosen and mention the given <span class="b">Twitter</span> account.
       </h2>
 
       <form @submit.prevent="onSubmit">
@@ -31,11 +31,13 @@
           id="response-message"
           v-if="responseMessage.error && responseMessage.message"
         >
-          <span
-            v-if="responseMessage.error === false"
-            v-text="responseMessage.message"
-          />
           <span class="error" v-text="responseMessage.message" />
+        </div>
+        <div
+          id="response-message"
+          v-if="responseMessage.success && responseMessage.message"
+        >
+          <span class="success">Tweet successfully created.</span>
         </div>
       </form>
     </div>
@@ -58,19 +60,20 @@ export default defineComponent({
     const responseMessage = reactive<any>({});
     async function onSubmit(e) {
       const username = e.target[0].value;
-      const res = await fetch("/post.php", {
+      const res = await fetch("https://api.saysomethingnice.today/post", {
         method: "POST",
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: JSON.stringify({
-          username,
+          username:username,
           compliment: complimentId,
         }),
       });
       if (res.status === 200) {
-        responseMessage.error= false
-        responseMessage.message = "Tweet message successfully created."
+        responseMessage.success= true;
+        responseMessage.message = 'indeed';
       } else {
         responseMessage.error = true;
-        responseMessage.message= "Failed to submit the nice thing to say. Recheck your credentials and try again later.";
+        responseMessage.message= "Failed to send, please only send once [for now, Twitter's API has limits] :).";
       }
     }
     return { compliment, onSubmit, responseMessage };
@@ -107,7 +110,7 @@ export default defineComponent({
     text-align: left;
     color: map-get($txt-colors, secondary);
     width: 45%;
-    height: 70%;
+    height: auto;
     padding: 2rem;
     border-radius: 0.5rem;
     background: rgba(map-get($bg-colors, secondary), 0.99);
@@ -125,6 +128,8 @@ export default defineComponent({
       font-weight: 500;
       line-height: 1.5;
     }
+    h2 .b{ color:map-get($txt-colors, blue);}
+    h2 .g{ color:map-get($txt-colors, green);}
 
     form {
       display: flex;
@@ -153,7 +158,12 @@ export default defineComponent({
 
         input[type="submit"] {
           cursor: pointer;
-          color: map-get($bg-colors, primary);
+          border:0;
+          color: #1b1b1b;
+          font-weight:700;
+          background: map-get($txt-colors, blue);
+
+          &:hover{background: map-get($txt-colors, green);}
         }
 
         a {
@@ -170,6 +180,9 @@ export default defineComponent({
         color: map-get($txt-colors, secondary);
         &.error {
           color: red;
+        }
+        &.success {
+          color: map-get($txt-colors, green);
         }
       }
     }
