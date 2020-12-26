@@ -59,7 +59,7 @@ export default defineComponent({
     const compliment = compliments.filter(({ id }) => id === complimentId)[0] as Compliment;
     const responseMessage = reactive<any>({});
     async function onSubmit(e) {
-      const username = e.target[0].value;
+      const username = e.target[0].value.split(' ')[0];
       const res = await fetch("https://api.saysomethingnice.today/post", {
         method: "POST",
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
