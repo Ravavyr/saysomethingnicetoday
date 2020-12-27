@@ -10,7 +10,6 @@ $twitter = new Twitter($apiKey, $apiSecret, $accessToken, $accessTokenSecret);
 $quotes_url = json_decode(file_get_contents('https://saysomethingnice.today/compliments.json'), true);
 $response = array();
 $_POST = json_decode(file_get_contents('php://input'), true);
-
 if(isset($_POST['username']) && isset($_POST['compliment']))
 {
     if(empty($_POST['username']))
@@ -40,6 +39,19 @@ if(isset($_POST['username']) && isset($_POST['compliment']))
     {
         $tw_username = '@'.$tw_username;
     }
+    //remove extra from username
+    $tw_username = explode(' ', $tw_username);
+    $tw_username = $tw_username[0];
+    //validate username
+    try
+    {
+        $twitter->loadUserInfo($tw_username);
+    }
+    catch (DG\Twitter\Exception $e)
+    {
+        $response[] = 'Invalid twitter username';
+    }
+    //end validation
     if(sizeof($response) > 0)
     {
         echo json_encode($response);
@@ -48,7 +60,7 @@ if(isset($_POST['username']) && isset($_POST['compliment']))
     {
         //All okay send tweet.
         $full_message = 'Someone wanted to say something nice to you today '.$tw_username.': "'.$compliment_msg.'"';
-        if(strlen($full_message) > 200)
+        if(strlen($full_message) > 280)
         {
             $full_message = ''.$tw_username.': "'.$compliment_msg.'"';
         }
