@@ -67,7 +67,7 @@ if(isset($_POST['username']) && isset($_POST['compliment']))
     else
     {
         //All okay send tweet.
-        $full_message = 'Someone wanted to say something nice to you today '.$tw_username.': "'.$compliment_msg.'"';
+        $full_message = $tw_username.': "'.$compliment_msg.'" ~ Someone Nice';
         if(strlen($full_message) > 280)
         {
             $full_message = ''.$tw_username.': "'.$compliment_msg.'"';
