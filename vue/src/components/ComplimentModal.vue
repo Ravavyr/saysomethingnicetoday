@@ -58,22 +58,34 @@ export default defineComponent({
     const compliments = store.state.allCompliments as Compliment[];
     const compliment = compliments.filter(({ id }) => id === complimentId)[0] as Compliment;
     const responseMessage = reactive<any>({});
+    responseMessage.error = false;
     async function onSubmit(e) {
-      const username = e.target[0].value.split(' ')[0];
-      const res = await fetch("https://api.saysomethingnice.today/post", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: JSON.stringify({
-          username:username,
-          compliment: complimentId,
-        }),
-      });
-      if (res.status === 200) {
-        responseMessage.success= true;
-        responseMessage.message = 'indeed';
-      } else {
+      let v = e.target[0].value;
+      const username = v.split(' ')[0];
+      if(username==''){
         responseMessage.error = true;
-        responseMessage.message= "Failed to send, please only send once [for now, Twitter's API has limits] :).";
+        responseMessage.message= "Please enter a valid Twitter Username";
+      }
+      if(responseMessage.error===false){
+        const res = await fetch("https://api.saysomethingnice.today/post", {
+          method: "POST",
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: JSON.stringify({
+            username:username,
+            compliment: complimentId,
+          }),
+        }).then(response => response.json())
+        .then(async function(res) {
+          console.log(res);
+            if (res.status == '200') {
+              responseMessage.success= true;
+              responseMessage.message = 'indeed';
+            } else {
+              responseMessage.error = true;
+              responseMessage.message= "Please only send once [The Twitter API has limits] - "+res.message+".";
+            }
+        });
+
       }
     }
     return { compliment, onSubmit, responseMessage };

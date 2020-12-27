@@ -14,11 +14,15 @@ if(isset($_POST['username']) && isset($_POST['compliment']))
 {
     if(empty($_POST['username']))
     {
-        $response[] = 'No twitter username';
+        http_response_code(400);
+        $response['status'] = '400';
+        $response['message'] = 'Twitter Username missing';
     }
     if(empty($_POST['compliment']))
     {
-        $response[] = 'No compliment added';
+        http_response_code(400);
+        $response['status'] = '400';
+        $response['message'] = 'Compliment missing';
     }
     $compliment = $_POST['compliment'];
     //Check if the compliment is in the json
@@ -32,7 +36,9 @@ if(isset($_POST['username']) && isset($_POST['compliment']))
     }
     if(!isset($compliment_msg))
     {
-        $response[] = 'Compliment not found';
+        http_response_code(400);
+        $response['status'] = '400';
+        $response['message'] = 'Compliment not found';
     }
     $tw_username = $_POST['username'];
     if(substr($tw_username, 0,1) !== '@')
@@ -49,12 +55,14 @@ if(isset($_POST['username']) && isset($_POST['compliment']))
     }
     catch (DG\Twitter\Exception $e)
     {
-        $response[] = 'Invalid twitter username';
+        header('HTTP/1.1 400 Invalid twitter username');
+        $response['message'] = 'Invalid twitter username'+print_r($e,true);
     }
     //end validation
     if(sizeof($response) > 0)
     {
         echo json_encode($response);
+        exit;
     }
     else
     {
@@ -67,20 +75,22 @@ if(isset($_POST['username']) && isset($_POST['compliment']))
         try
         {
             $statuses = $twitter->send($full_message);
-            $response[] = 'Success';
             http_response_code(200);
-            echo json_encode($response);
+            $response['status'] = '200';
+            $response['message'] = 'Success';
         }
         catch (DG\Twitter\Exception $e)
         {
             http_response_code(400);
-            echo "Error: ", $e->getMessage();
+            $response['status'] = '400';
+            $response['message'] = $e->getMessage();
         }
     }
 }
 else
 {
-    $response[] = 'Required form fields not received.';
-    echo json_encode($response);
+    $response['message'] = 'Required form fields not received.';
 }
+echo json_encode($response);
+exit;
 ?>
