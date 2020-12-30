@@ -73,7 +73,7 @@ export default defineComponent({
     function filterCompliments(compliments: Compliment[], _query: string) {
       const query = _query.trim();
       if (query) {
-        return new FuzzySearch(compliments, ["compliment"]).search(query) as Compliment[];
+        return new FuzzySearch(compliments, ["compliment"],{sort:true}).search(query) as Compliment[];
       } else {
 
         compliments = compliments
