@@ -75,7 +75,14 @@ export default defineComponent({
       if (query) {
         return new FuzzySearch(compliments, ["compliment"]).search(query) as Compliment[];
       } else {
+
+        compliments = compliments
+          .map((a) => ({sort: Math.random(), value: a}))
+          .sort((a, b) => a.sort - b.sort)
+          .map((a) => a.value)
         return compliments;
+        //return compliments.sort(function randomize(a, b) {return Math.random() - 0.5;});
+        //return compliments;
       }
     }
 
