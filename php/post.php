@@ -55,7 +55,7 @@ if(isset($_POST['username']) && isset($_POST['compliment']))
     }
     catch (DG\Twitter\Exception $e)
     {
-        header('HTTP/1.1 400 Invalid twitter username');
+        http_response_code(400);
         $response['message'] = 'Invalid twitter username'+print_r($e,true);
     }
     //end validation
