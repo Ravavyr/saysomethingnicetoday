@@ -82,7 +82,7 @@ export default defineComponent({
               responseMessage.message = 'indeed';
             } else {
               responseMessage.error = true;
-              responseMessage.message= "Please only send once [The Twitter API has limits] - "+res.message+".";
+              responseMessage.message= "Please only send once [The Twitter API has limits] - "+res.message;
             }
         });
 
