@@ -1,11 +1,8 @@
 <?php
 error_reporting(0);
-//https://github.com/dg/twitter-php/
-require_once('dg-twitter/index.php');
 //Insert API and access keys here.
 require_once('keys.php');
-use DG\Twitter\Twitter;
-$twitter = new Twitter($apiKey, $apiSecret, $accessToken, $accessTokenSecret);
+require_once('dg-twitter/index.php');
 //Handling quotes.
 $quotes_url = json_decode(file_get_contents('https://saysomethingnice.today/compliments.json'), true);
 $response = array();
@@ -69,10 +66,6 @@ if(isset($_POST['username']) && isset($_POST['compliment']))
     {
         //All okay send tweet.
         $full_message = $tw_username.': "'.$compliment_msg.'" ~ Someone Nice';
-        if(strlen($full_message) > 280)
-        {
-            $full_message = ''.$tw_username.': "'.$compliment_msg.'"';
-        }
         try
         {
             $statuses = $twitter->send($full_message);
