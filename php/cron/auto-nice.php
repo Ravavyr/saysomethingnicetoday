@@ -3,8 +3,12 @@
 ini_set('max_execution_time', 0);
 set_time_limit(0);
 
-require_once('../keys.php');
-require_once('../dg-twitter/index.php');
+require_once('/var/www/nicetoday/api/keys.php');
+require_once('/var/www/nicetoday/api/dg-twitter/index.php');
+
+use DG\Twitter\Twitter;
+$twitter = new Twitter($apiKey, $apiSecret, $accessToken, $accessTokenSecret);
+
 $quotes_url = json_decode(file_get_contents('https://saysomethingnice.today/compliments.json'), true);
 function get_random_quote($quotes_url)
 {
@@ -21,9 +25,10 @@ $statuses = $twitter->request('search/tweets', 'GET', [
     'result_type' => 'recent',
 ]);
 $statuses = $statuses->statuses;
-for($i = 0; $i < sizeof($statuses); $i++)
-{
-    sleep(rand(12,5400));
+for($i = 0; $i < sizeof($statuses); $i++){
+    $rand = rand(12,5400);
+    echo $rand;
+    sleep($rand);
     $username = $statuses[$i]->user->screen_name;
     $quote = get_random_quote($quotes_url);
     $message = '@'.$username.': '.$quote.' ~ Someone nice.';
