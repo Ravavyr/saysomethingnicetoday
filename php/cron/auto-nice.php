@@ -1,10 +1,13 @@
 <?php
-//Once fer hour should be fine
+//Automated messages sent with random time gap in between.
+ini_set('max_execution_time', 0);
+set_time_limit(0);
+
 require_once('../keys.php');
 require_once('../dg-twitter/index.php');
-function get_random_quote()
+$quotes_url = json_decode(file_get_contents('https://saysomethingnice.today/compliments.json'), true);
+function get_random_quote($quotes_url)
 {
-    $quotes_url = json_decode(file_get_contents('https://saysomethingnice.today/compliments.json'), true);
     shuffle($quotes_url);
     return $quotes_url[0]['compliment'];
 }
@@ -20,9 +23,10 @@ $statuses = $twitter->request('search/tweets', 'GET', [
 $statuses = $statuses->statuses;
 for($i = 0; $i < sizeof($statuses); $i++)
 {
-    $usernames = $statuses[$i]->user->screen_name;
-    $quote = get_random_quote();
-    $message = '@'.$usernames.': '.$quote.' ~ Someone nice.';
+    sleep(rand(12,3600));
+    $username = $statuses[$i]->user->screen_name;
+    $quote = get_random_quote($quotes_url);
+    $message = '@'.$username.': '.$quote.' ~ Someone nice.';
     $statuses = $twitter->send($message);
 }
 ?>
