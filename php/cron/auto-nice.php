@@ -16,14 +16,14 @@ $keywords = array('#myfirsttweet', 'cat', 'dog', 'nature');
 shuffle($keywords);
 $search_for = $keywords[0];
 $statuses = $twitter->request('search/tweets', 'GET', [
-    'count' => 20,
+    'count' => 10,
     'q' => $search_for,
     'result_type' => 'recent',
 ]);
 $statuses = $statuses->statuses;
 for($i = 0; $i < sizeof($statuses); $i++)
 {
-    sleep(rand(12,3600));
+    sleep(rand(12,5400));
     $username = $statuses[$i]->user->screen_name;
     $quote = get_random_quote($quotes_url);
     $message = '@'.$username.': '.$quote.' ~ Someone nice.';
