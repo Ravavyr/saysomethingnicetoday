@@ -53,42 +53,49 @@
 </template>
 
 <script lang="ts">
-import type { State } from "@/store";
-import type { Store } from "vuex";
-import type { Compliment } from "@/models";
-import { computed, defineComponent, ref } from "vue";
-import ComplimentCard from "@/components/ComplimentCard.vue";
-import { useStore } from "vuex";
-import { StoreActions } from "@/store";
-import FuzzySearch from "fuzzy-search";
+  import { defineComponent, computed, ref } from 'vue';
+  import { useStore } from 'vuex';
+  import FuzzySearch from 'fuzzy-search';
+  import { Store } from 'vuex';
+  import { Compliment } from '@/models';
+  import ComplimentCard from '@/components/ComplimentCard.vue';
+  import { StoreActions } from '@/store';
+  import { createApp } from 'vue';
+  import VueGtag from 'vue-gtag';
 
-export default defineComponent({
-  name: "Home",
-  components: { ComplimentCard },
-  setup() {
-    const store = useStore() as Store<State>;
-    const state = computed<State>(() => store.state);
-    const searchQuery = ref("");
+  const app = createApp({});
+  app.use(VueGtag, { config: { id: 'G-YK8VECEJ74' } });
 
-    function filterCompliments(compliments: Compliment[], _query: string) {
-      const query = _query.trim();
-      if (query) {
-        return new FuzzySearch(compliments, ["compliment"],{sort:true}).search(query) as Compliment[];
-      } else {
+  export default defineComponent({
+    name: 'Home',
+    components: { ComplimentCard },
+    setup() {
+      const store = useStore();
+      const state = computed(() => store.state);
+      const searchQuery = ref('');
 
-        compliments = compliments
-          .map((a) => ({sort: Math.random(), value: a}))
-          .sort((a, b) => a.sort - b.sort)
-          .map((a) => a.value)
-        return compliments;
-        //return compliments.sort(function randomize(a, b) {return Math.random() - 0.5;});
-        //return compliments;
+      function filterCompliments(compliments: Compliment[], _query: string) {
+        const query = _query.trim();
+        if (query) {
+          return new FuzzySearch(compliments, ['compliment'], { sort: true }).search(query) as Compliment[];
+        } else {
+          compliments = compliments
+            .map((a) => ({ sort: Math.random(), value: a }))
+            .sort((a, b) => a.sort - b.sort)
+            .map((a) => a.value);
+          return compliments;
+        }
       }
-    }
 
-    return { state, searchQuery, filterCompliments };
-  },
-});
+      return {
+        state,
+        searchQuery,
+        filterCompliments
+      };
+    }
+  });
+
+  app.mount('#app');
 </script>
 
 <style lang="scss" scoped>

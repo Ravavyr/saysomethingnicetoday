@@ -25,7 +25,7 @@ $statuses = $twitter->request('search/tweets', 'GET', [
     'result_type' => 'recent',
 ]);
 $statuses = $statuses->statuses;
-for($i = 0; $i < sizeof($statuses); $i++){
+for($i = 0; $i < count($statuses); $i++){
     $rand = rand(12,5400);
     echo $rand;
     sleep($rand);
