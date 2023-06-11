@@ -26,7 +26,7 @@ body {
 
 #app {
   padding: 1rem 5rem;
-  background: var(--bg-colors-primary);
+  background: #1b1b1b;
   min-height: 100vh;
   padding-bottom: 4rem;
 }

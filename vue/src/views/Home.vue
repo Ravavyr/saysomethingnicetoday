@@ -27,23 +27,23 @@
       </div>
       <div class="thewhy">
         <figure class="y">
-          <img src="@/assets/joyride.svg" alt="A Happy Announcement">
+          <img src="@/assets/joyride.svg" alt="A Happy Announcement" />
           <figcaption>Lift Someone Up High.</figcaption>
         </figure>
         <figure class="g">
-          <img src="@/assets/happy_announcement.svg" alt="A Happy Announcement">
+          <img src="@/assets/happy_announcement.svg" alt="A Happy Announcement" />
           <figcaption>Cheer on a Friend.</figcaption>
         </figure>
         <figure class="b">
-          <img src="@/assets/intense_feeling.svg" alt="A Happy Announcement">
+          <img src="@/assets/intense_feeling.svg" alt="A Happy Announcement" />
           <figcaption>Show someone some Love.</figcaption>
         </figure>
         <figure class="g">
-          <img src="@/assets/i_can_fly.svg" alt="A Happy Announcement">
+          <img src="@/assets/i_can_fly.svg" alt="A Happy Announcement" />
           <figcaption>Raise someone's Spirit.</figcaption>
         </figure>
         <figure class="b">
-          <img src="@/assets/exciting_news.svg" alt="A Happy Announcement">
+          <img src="@/assets/exciting_news.svg" alt="A Happy Announcement" />
           <figcaption>Make someone's Day.</figcaption>
         </figure>
       </div>
@@ -98,7 +98,7 @@
   app.mount('#app');
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 #home-page {
   width: 100%;
 
